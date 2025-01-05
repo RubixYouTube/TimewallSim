@@ -1,0 +1,493 @@
+<html>
+<head><base href="assets/">
+<style>
+@font-face {
+    font-family: 'Dogica';
+    src: url('dogica.woff2') format('woff2');
+}
+
+body {
+    background: #0f0f0f;
+    color: #fff;
+    font-family: 'Dogica', monospace;
+    margin: 0;
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    background: #1a1a1a;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.content {
+    margin-left: 220px;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.tab-button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background: #2a2a2a;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Dogica';
+    text-align: left;
+}
+
+.tab-button.active {
+    background: #3a3a3a;
+}
+
+.tab-button.cyan {
+    background: #0ff;
+    color: #000;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+.seconds-display {
+    font-size: 1.25em;
+    color: cyan;
+    text-shadow: 0 0 10px cyan;
+    margin: 20px 0;
+}
+
+.upgrade {
+    background: #2a2a2a;
+    padding: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.upgrade:hover {
+    background: #3a3a3a;
+}
+
+#breakTimeBtn {
+    background: cyan;
+    color: black;
+    padding: 15px;
+    border: none;
+    animation: glow 1s ease-in-out infinite alternate;
+    cursor: pointer;
+    display: none;
+    font-family: 'Dogica';
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 15px #0ff;
+    }
+    to {
+        box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+    }
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+</style>
+</head>
+<body>
+<div class="sidebar" id="sidebar">
+    <button class="tab-button active" onclick="showSection('basic')">Basic Waitings</button>
+    <button class="tab-button" onclick="showSection('daynight')">Day and Night</button>
+    <button class="tab-button" onclick="showSection('yearly')">Yearly Boost</button>
+    <button class="tab-button" onclick="showSection('exponential')">Exponential Time</button>
+    <button class="tab-button" onclick="showSection('dark')">A Dark Hit</button>
+    <button class="tab-button" onclick="showSection('bangs')">New Bangs</button>
+    <button class="tab-button" onclick="showSection('last')">The Last Second</button>
+    <button class="tab-button cyan" id="breakerTab" style="display:none" onclick="showSection('breaker')">Time Breaker</button>
+</div>
+
+<div class="content">
+    <h1>Timewall Simulator</h1>
+    <div class="seconds-display">You waited for <span id="seconds">0</span> seconds.</div>
+    <button id="breakTimeBtn">Break Time</button>
+
+    <div id="basic" class="section active">
+        <div class="upgrade" onclick="buyUpgrade('basic', 0)">Faster Ticks I (Cost: 10 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 1)">Faster Ticks II (Cost: 20 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 2)">Faster Ticks III (Cost: 40 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 3)">Faster Ticks IV (Cost: 80 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 4)">Faster Ticks V (Cost: 160 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 5)">Faster Ticks VI (Cost: 320 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 6)">Faster Ticks VII (Cost: 640 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 7)">Faster Ticks VIII (Cost: 1280 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 8)">Faster Ticks IX (Cost: 2560 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 9)">Faster Ticks X (Cost: 5120 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 10)">Faster Ticks XI (Cost: 10240 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 11)">Faster Ticks XII (Cost: 20480 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 12)">Faster Ticks XIII (Cost: 40960 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 13)">Faster Ticks XIV (Cost: 81920 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('basic', 14)">Faster Ticks XV (Cost: 163840 seconds)</div>
+    </div>
+    
+    <div id="daynight" class="section">
+        <div class="upgrade" onclick="buyUpgrade('daynight', 0)">Dawn Accelerator I (Cost: 1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 1)">Dawn Accelerator II (Cost: 2000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 2)">Dawn Accelerator III (Cost: 4000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 3)">Dawn Accelerator IV (Cost: 8000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 4)">Dawn Accelerator V (Cost: 16000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 5)">Dawn Accelerator VI (Cost: 32000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 6)">Dawn Accelerator VII (Cost: 64000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 7)">Dawn Accelerator VIII (Cost: 128000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 8)">Dawn Accelerator IX (Cost: 256000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 9)">Dawn Accelerator X (Cost: 512000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 10)">Dawn Accelerator XI (Cost: 1024000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 11)">Dawn Accelerator XII (Cost: 2048000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 12)">Dawn Accelerator XIII (Cost: 4096000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 13)">Dawn Accelerator XIV (Cost: 8192000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('daynight', 14)">Dawn Accelerator XV (Cost: 16384000 seconds)</div>
+    </div>
+    
+    <div id="yearly" class="section">
+        <div class="upgrade" onclick="buyUpgrade('yearly', 0)">Annual Amplifier I (Cost: 25000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 1)">Annual Amplifier II (Cost: 50000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 2)">Annual Amplifier III (Cost: 100000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 3)">Annual Amplifier IV (Cost: 200000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 4)">Annual Amplifier V (Cost: 400000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 5)">Annual Amplifier VI (Cost: 800000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 6)">Annual Amplifier VII (Cost: 1600000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 7)">Annual Amplifier VIII (Cost: 3200000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 8)">Annual Amplifier IX (Cost: 6400000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 9)">Annual Amplifier X (Cost: 12800000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 10)">Annual Amplifier XI (Cost: 25600000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 11)">Annual Amplifier XII (Cost: 51200000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 12)">Annual Amplifier XIII (Cost: 102400000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 13)">Annual Amplifier XIV (Cost: 204800000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('yearly', 14)">Annual Amplifier XV (Cost: 409600000 seconds)</div>
+    </div>
+    
+    <div id="exponential" class="section">
+        <div class="upgrade" onclick="buyUpgrade('exponential', 0)">Exponential Growth I (Cost: 250000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 1)">Exponential Growth II (Cost: 500000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 2)">Exponential Growth III (Cost: 1000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 3)">Exponential Growth IV (Cost: 2000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 4)">Exponential Growth V (Cost: 4000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 5)">Exponential Growth VI (Cost: 8000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 6)">Exponential Growth VII (Cost: 16000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 7)">Exponential Growth VIII (Cost: 32000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 8)">Exponential Growth IX (Cost: 64000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 9)">Exponential Growth X (Cost: 128000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 10)">Exponential Growth XI (Cost: 256000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 11)">Exponential Growth XII (Cost: 512000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 12)">Exponential Growth XIII (Cost: 1024000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 13)">Exponential Growth XIV (Cost: 2048000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('exponential', 14)">Exponential Growth XV (Cost: 4096000000 seconds)</div>
+    </div>
+    
+    <div id="dark" class="section">
+        <div class="upgrade" onclick="buyUpgrade('dark', 0)">Dark Matter Time I (Cost: 1000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 1)">Dark Matter Time II (Cost: 2000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 2)">Dark Matter Time III (Cost: 4000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 3)">Dark Matter Time IV (Cost: 8000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 4)">Dark Matter Time V (Cost: 16000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 5)">Dark Matter Time VI (Cost: 32000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 6)">Dark Matter Time VII (Cost: 64000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 7)">Dark Matter Time VIII (Cost: 128000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 8)">Dark Matter Time IX (Cost: 256000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 9)">Dark Matter Time X (Cost: 512000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 10)">Dark Matter Time XI (Cost: 1024000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 11)">Dark Matter Time XII (Cost: 2048000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 12)">Dark Matter Time XIII (Cost: 4096000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 13)">Dark Matter Time XIV (Cost: 8192000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('dark', 14)">Dark Matter Time XV (Cost: 16384000000 seconds)</div>
+    </div>
+    
+    <div id="bangs" class="section">
+        <div class="upgrade" onclick="buyUpgrade('bangs', 0)">Big Bang Boost I (Cost: 5000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 1)">Big Bang Boost II (Cost: 10000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 2)">Big Bang Boost III (Cost: 20000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 3)">Big Bang Boost IV (Cost: 40000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 4)">Big Bang Boost V (Cost: 80000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 5)">Big Bang Boost VI (Cost: 160000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 6)">Big Bang Boost VII (Cost: 320000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 7)">Big Bang Boost VIII (Cost: 640000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 8)">Big Bang Boost IX (Cost: 1280000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 9)">Big Bang Boost X (Cost: 2560000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 10)">Big Bang Boost XI (Cost: 5120000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 11)">Big Bang Boost XII (Cost: 10240000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 12)">Big Bang Boost XIII (Cost: 20480000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 13)">Big Bang Boost XIV (Cost: 40960000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('bangs', 14)">Big Bang Boost XV (Cost: 81920000000 seconds)</div>
+    </div>
+    
+    <div id="last" class="section">
+        <div class="upgrade" onclick="buyUpgrade('last', 0)">Final Countdown I (Cost: 10000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 1)">Final Countdown II (Cost: 20000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 2)">Final Countdown III (Cost: 40000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 3)">Final Countdown IV (Cost: 80000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 4)">Final Countdown V (Cost: 160000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 5)">Final Countdown VI (Cost: 320000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 6)">Final Countdown VII (Cost: 640000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 7)">Final Countdown VIII (Cost: 1280000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 8)">Final Countdown IX (Cost: 2560000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 9)">Final Countdown X (Cost: 5120000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 10)">Final Countdown XI (Cost: 10240000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 11)">Final Countdown XII (Cost: 20480000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 12)">Final Countdown XIII (Cost: 40960000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 13)">Final Countdown XIV (Cost: 81920000000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('last', 14)">Final Countdown XV (Cost: 163840000000 seconds)</div>
+    </div>
+    
+    <div id="breaker" class="section">
+        <div class="upgrade" onclick="buyUpgrade('breaker', 0)">Time Fracture I (Cost: 1e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 1)">Time Fracture II (Cost: 2e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 2)">Time Fracture III (Cost: 4e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 3)">Time Fracture IV (Cost: 8e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 4)">Time Fracture V (Cost: 16e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 5)">Time Fracture VI (Cost: 32e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 6)">Time Fracture VII (Cost: 64e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 7)">Time Fracture VIII (Cost: 128e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 8)">Time Fracture IX (Cost: 256e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 9)">Time Fracture X (Cost: 512e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 10)">Time Fracture XI (Cost: 1024e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 11)">Time Fracture XII (Cost: 2048e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 12)">Time Fracture XIII (Cost: 4096e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 13)">Time Fracture XIV (Cost: 8192e1000 seconds)</div>
+        <div class="upgrade" onclick="buyUpgrade('breaker', 14)">Time Fracture XV (Cost: 16384e1000 seconds)</div>
+    </div>
+</div>
+
+<script>
+let gameData = {
+    seconds: 0,
+    timeMultiplier: 1,
+    broken: false,
+    upgradesBought: 0
+};
+
+const UPGRADE_SECTIONS = {
+    basic: [
+        {name: "Faster Ticks I", cost: 10, multiplier: 1.1},
+        {name: "Faster Ticks II", cost: 20, multiplier: 1.1},
+        {name: "Faster Ticks III", cost: 40, multiplier: 1.1},
+        {name: "Faster Ticks IV", cost: 80, multiplier: 1.1},
+        {name: "Faster Ticks V", cost: 160, multiplier: 1.1},
+        {name: "Faster Ticks VI", cost: 320, multiplier: 1.1},
+        {name: "Faster Ticks VII", cost: 640, multiplier: 1.1},
+        {name: "Faster Ticks VIII", cost: 1280, multiplier: 1.1},
+        {name: "Faster Ticks IX", cost: 2560, multiplier: 1.1},
+        {name: "Faster Ticks X", cost: 5120, multiplier: 1.1},
+        {name: "Faster Ticks XI", cost: 10240, multiplier: 1.1},
+        {name: "Faster Ticks XII", cost: 20480, multiplier: 1.1},
+        {name: "Faster Ticks XIII", cost: 40960, multiplier: 1.1},
+        {name: "Faster Ticks XIV", cost: 81920, multiplier: 1.1},
+        {name: "Faster Ticks XV", cost: 163840, multiplier: 1.1}
+    ],
+    daynight: [
+        {name: "Dawn Accelerator I", cost: 1000, multiplier: 1.6},
+        {name: "Dawn Accelerator II", cost: 2000, multiplier: 1.6},
+        {name: "Dawn Accelerator III", cost: 4000, multiplier: 1.6},
+        {name: "Dawn Accelerator IV", cost: 8000, multiplier: 1.6},
+        {name: "Dawn Accelerator V", cost: 16000, multiplier: 1.6},
+        {name: "Dawn Accelerator VI", cost: 32000, multiplier: 1.6},
+        {name: "Dawn Accelerator VII", cost: 64000, multiplier: 1.6},
+        {name: "Dawn Accelerator VIII", cost: 128000, multiplier: 1.6},
+        {name: "Dawn Accelerator IX", cost: 256000, multiplier: 1.6},
+        {name: "Dawn Accelerator X", cost: 512000, multiplier: 1.6},
+        {name: "Dawn Accelerator XI", cost: 1024000, multiplier: 1.6},
+        {name: "Dawn Accelerator XII", cost: 2048000, multiplier: 1.6},
+        {name: "Dawn Accelerator XIII", cost: 4096000, multiplier: 1.6},
+        {name: "Dawn Accelerator XIV", cost: 8192000, multiplier: 1.6},
+        {name: "Dawn Accelerator XV", cost: 16384000, multiplier: 1.6}
+    ],
+    yearly: [
+        {name: "Annual Amplifier I", cost: 25000, multiplier: 2.0},
+        {name: "Annual Amplifier II", cost: 50000, multiplier: 2.0},
+        {name: "Annual Amplifier III", cost: 100000, multiplier: 2.0},
+        {name: "Annual Amplifier IV", cost: 200000, multiplier: 2.0},
+        {name: "Annual Amplifier V", cost: 400000, multiplier: 2.0},
+        {name: "Annual Amplifier VI", cost: 800000, multiplier: 2.0},
+        {name: "Annual Amplifier VII", cost: 1600000, multiplier: 2.0},
+        {name: "Annual Amplifier VIII", cost: 3200000, multiplier: 2.0},
+        {name: "Annual Amplifier IX", cost: 6400000, multiplier: 2.0},
+        {name: "Annual Amplifier X", cost: 12800000, multiplier: 2.0},
+        {name: "Annual Amplifier XI", cost: 25600000, multiplier: 2.0},
+        {name: "Annual Amplifier XII", cost: 51200000, multiplier: 2.0},
+        {name: "Annual Amplifier XIII", cost: 102400000, multiplier: 2.0},
+        {name: "Annual Amplifier XIV", cost: 204800000, multiplier: 2.0},
+        {name: "Annual Amplifier XV", cost: 409600000, multiplier: 2.0}
+    ],
+    exponential: [
+        {name: "Exponential Growth I", cost: 250000, multiplier: 2.6},
+        {name: "Exponential Growth II", cost: 500000, multiplier: 2.6},
+        {name: "Exponential Growth III", cost: 1000000, multiplier: 2.6},
+        {name: "Exponential Growth IV", cost: 2000000, multiplier: 2.6},
+        {name: "Exponential Growth V", cost: 4000000, multiplier: 2.6},
+        {name: "Exponential Growth VI", cost: 8000000, multiplier: 2.6},
+        {name: "Exponential Growth VII", cost: 16000000, multiplier: 2.6},
+        {name: "Exponential Growth VIII", cost: 32000000, multiplier: 2.6},
+        {name: "Exponential Growth IX", cost: 64000000, multiplier: 2.6},
+        {name: "Exponential Growth X", cost: 128000000, multiplier: 2.6},
+        {name: "Exponential Growth XI", cost: 256000000, multiplier: 2.6},
+        {name: "Exponential Growth XII", cost: 512000000, multiplier: 2.6},
+        {name: "Exponential Growth XIII", cost: 1024000000, multiplier: 2.6},
+        {name: "Exponential Growth XIV", cost: 2048000000, multiplier: 2.6},
+        {name: "Exponential Growth XV", cost: 4096000000, multiplier: 2.6}
+    ],
+    dark: [
+        {name: "Dark Matter Time I", cost: 1000000, multiplier: 3.0},
+        {name: "Dark Matter Time II", cost: 2000000, multiplier: 3.0},
+        {name: "Dark Matter Time III", cost: 4000000, multiplier: 3.0},
+        {name: "Dark Matter Time IV", cost: 8000000, multiplier: 3.0},
+        {name: "Dark Matter Time V", cost: 16000000, multiplier: 3.0},
+        {name: "Dark Matter Time VI", cost: 32000000, multiplier: 3.0},
+        {name: "Dark Matter Time VII", cost: 64000000, multiplier: 3.0},
+        {name: "Dark Matter Time VIII", cost: 128000000, multiplier: 3.0},
+        {name: "Dark Matter Time IX", cost: 256000000, multiplier: 3.0},
+        {name: "Dark Matter Time X", cost: 512000000, multiplier: 3.0},
+        {name: "Dark Matter Time XI", cost: 1024000000, multiplier: 3.0},
+        {name: "Dark Matter Time XII", cost: 2048000000, multiplier: 3.0},
+        {name: "Dark Matter Time XIII", cost: 4096000000, multiplier: 3.0},
+        {name: "Dark Matter Time XIV", cost: 8192000000, multiplier: 3.0},
+        {name: "Dark Matter Time XV", cost: 16384000000, multiplier: 3.0}
+    ],
+    bangs: [
+        {name: "Big Bang Boost I", cost: 5000000, multiplier: 3.5},
+        {name: "Big Bang Boost II", cost: 10000000, multiplier: 3.5},
+        {name: "Big Bang Boost III", cost: 20000000, multiplier: 3.5},
+        {name: "Big Bang Boost IV", cost: 40000000, multiplier: 3.5},
+        {name: "Big Bang Boost V", cost: 80000000, multiplier: 3.5},
+        {name: "Big Bang Boost VI", cost: 160000000, multiplier: 3.5},
+        {name: "Big Bang Boost VII", cost: 320000000, multiplier: 3.5},
+        {name: "Big Bang Boost VIII", cost: 640000000, multiplier: 3.5},
+        {name: "Big Bang Boost IX", cost: 1280000000, multiplier: 3.5},
+        {name: "Big Bang Boost X", cost: 2560000000, multiplier: 3.5},
+        {name: "Big Bang Boost XI", cost: 5120000000, multiplier: 3.5},
+        {name: "Big Bang Boost XII", cost: 10240000000, multiplier: 3.5},
+        {name: "Big Bang Boost XIII", cost: 20480000000, multiplier: 3.5},
+        {name: "Big Bang Boost XIV", cost: 40960000000, multiplier: 3.5},
+        {name: "Big Bang Boost XV", cost: 81920000000, multiplier: 3.5}
+    ],
+    last: [
+        {name: "Final Countdown I", cost: 10000000, multiplier: 4.0},
+        {name: "Final Countdown II", cost: 20000000, multiplier: 4.0},
+        {name: "Final Countdown III", cost: 40000000, multiplier: 4.0},
+        {name: "Final Countdown IV", cost: 80000000, multiplier: 4.0},
+        {name: "Final Countdown V", cost: 160000000, multiplier: 4.0},
+        {name: "Final Countdown VI", cost: 320000000, multiplier: 4.0},
+        {name: "Final Countdown VII", cost: 640000000, multiplier: 4.0},
+        {name: "Final Countdown VIII", cost: 1280000000, multiplier: 4.0},
+        {name: "Final Countdown IX", cost: 2560000000, multiplier: 4.0},
+        {name: "Final Countdown X", cost: 5120000000, multiplier: 4.0},
+        {name: "Final Countdown XI", cost: 10240000000, multiplier: 4.0},
+        {name: "Final Countdown XII", cost: 20480000000, multiplier: 4.0},
+        {name: "Final Countdown XIII", cost: 40960000000, multiplier: 4.0},
+        {name: "Final Countdown XIV", cost: 81920000000, multiplier: 4.0},
+        {name: "Final Countdown XV", cost: 163840000000, multiplier: 4.0}
+    ],
+    breaker: [
+        {name: "Time Fracture I", cost: 1e1000, multiplier: 5.0},
+        {name: "Time Fracture II", cost: 2e1000, multiplier: 5.0},
+        {name: "Time Fracture III", cost: 4e1000, multiplier: 5.0},
+        {name: "Time Fracture IV", cost: 8e1000, multiplier: 5.0},
+        {name: "Time Fracture V", cost: 16e1000, multiplier: 5.0},
+        {name: "Time Fracture VI", cost: 32e1000, multiplier: 5.0},
+        {name: "Time Fracture VII", cost: 64e1000, multiplier: 5.0},
+        {name: "Time Fracture VIII", cost: 128e1000, multiplier: 5.0},
+        {name: "Time Fracture IX", cost: 256e1000, multiplier: 5.0},
+        {name: "Time Fracture X", cost: 512e1000, multiplier: 5.0},
+        {name: "Time Fracture XI", cost: 1024e1000, multiplier: 5.0},
+        {name: "Time Fracture XII", cost: 2048e1000, multiplier: 5.0},
+        {name: "Time Fracture XIII", cost: 4096e1000, multiplier: 5.0},
+        {name: "Time Fracture XIV", cost: 8192e1000, multiplier: 5.0},
+        {name: "Time Fracture XV", cost: 16384e1000, multiplier: 5.0}
+    ]
+};
+
+function formatSeconds(seconds) {
+    if (seconds >= 1e10000) {
+        let num3 = Math.floor(Math.log10(Math.log10(seconds)));
+        let decimal2 = Math.floor((Math.log10(Math.log10(seconds)) % 1) * 100);
+        return `10^10^${num3}.${decimal2}`;
+    }
+    if (seconds >= 1e6) {
+        let num2 = Math.floor(Math.log10(seconds));
+        let decimal = Math.floor((Math.log10(seconds) % 1) * 100);
+        return `10^${num2}.${decimal}`;
+    }
+    return seconds.toFixed(2);
+}
+
+function updateDisplay() {
+    document.getElementById('seconds').textContent = formatSeconds(gameData.seconds) + " seconds";
+}
+
+function showSection(sectionId) {
+    document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+    
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.classList.add('active');
+        const button = document.querySelector(`button[onclick="showSection('${sectionId}')"]`);
+        if (button) {
+            button.classList.add('active');
+        }
+    }
+}
+
+function buyUpgrade(section, index) {
+    const upgrade = UPGRADE_SECTIONS[section][index];
+    if (!upgrade) return;
+    if (gameData.seconds >= upgrade.cost) {
+        gameData.seconds -= upgrade.cost;
+        gameData.timeMultiplier *= upgrade.multiplier;
+        gameData.upgradesBought++;
+        
+        if (gameData.upgradesBought % 10 === 0) {
+            gameData.timeMultiplier *= 1.5; // Perk bonus every 10 upgrades
+        }
+        if (gameData.upgradesBought % 25 === 0) {
+            // Unlock bonus every 25 upgrades
+            gameData.timeMultiplier *= 2;
+        }
+        updateDisplay();
+    }
+}
+
+// Game loop
+setInterval(() => {
+    if (!gameData.broken) {
+        gameData.seconds += 0.1 * gameData.timeMultiplier;
+        updateDisplay();
+
+        if (gameData.seconds >= 1e1000 && !gameData.broken) {
+            document.getElementById('breakerTab').style.display = 'block';
+            document.getElementById('breakTimeBtn').style.display = 'block';
+        }
+    }
+}, 100);
+
+document.getElementById('breakTimeBtn').addEventListener('click', () => {
+    if (gameData.seconds >= 1e1000) {
+        gameData.broken = true;
+        gameData.timeMultiplier *= 2;
+        let num2 = Math.floor(Math.log10(gameData.seconds));
+        gameData.seconds = Math.pow(10, num2 * 1.025);
+        updateDisplay();
+    }
+});
+
+// Initialize game
+updateDisplay();
+</script>
+</body></html>
